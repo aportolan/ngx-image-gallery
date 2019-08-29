@@ -13,9 +13,9 @@ import {
     ViewChild
 } from '@angular/core';
 
-import {assign, findIndex, debounce} from 'lodash';
+import { assign, findIndex, debounce } from 'lodash';
 
-import {GALLERY_CONF, GALLERY_IMAGE} from '../../ngx-image-gallery.conf';
+import { GALLERY_CONF, GALLERY_IMAGE } from '../../ngx-image-gallery.conf';
 import { DomSanitizer } from '@angular/platform-browser';
 
 // key codes to react
@@ -188,7 +188,12 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
                     setTimeout(() => this.scrollThumbnails(), 300);
                 });
             })
-            .catch(error => console.warn(error));
+            .catch(
+                error => {
+                    this.activeImageIndex = 0;
+                    console.warn(error);
+                }
+            );
     }
 
     // adjust thumbnail margin to perfectly fit viewport
@@ -210,10 +215,10 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
     }
 
     // debounced prev
-    private debouncedPrev = debounce(() => this.prev(), 100, {'leading': true, 'trailing': false});
+    private debouncedPrev = debounce(() => this.prev(), 100, { 'leading': true, 'trailing': false });
 
     // debounced next
-    private debouncedNext = debounce(() => this.next(), 100, {'leading': true, 'trailing': false});
+    private debouncedNext = debounce(() => this.next(), 100, { 'leading': true, 'trailing': false });
 
     /***************************************************/
 
@@ -221,7 +226,7 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
         private galleryElem: ElementRef,
         private sanitizer: DomSanitizer,
         private renderer: Renderer2
-    ) {}
+    ) { }
 
     ngOnInit() {
         // create final gallery configuration
@@ -262,7 +267,7 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
         }
 
     }
-    
+
     // keyboard event
     @HostListener('window:keydown', ['$event'])
     public onKeyboardInput(event: KeyboardEvent) {
@@ -300,8 +305,10 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
 
             // activate image at given index
             this.activateImage(index);
+
         }
         else {
+            this.activeImageIndex = 0;
             console.warn('No images provided to ngx-image-gallery!');
         }
     }

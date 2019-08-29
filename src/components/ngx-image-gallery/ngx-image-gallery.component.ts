@@ -95,7 +95,7 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
 
     // if gallery is on : last image
     get onLastImage(): boolean {
-        return this.activeImageIndex == (this.images.length - 1);
+        return this.activeImageIndex == (this.images.length > 0 ? this.images.length - 1 : 0);
     }
 
     // get thumbnails viewport rendering parameters

@@ -16,7 +16,6 @@ import {
 import { assign, findIndex, debounce } from 'lodash';
 
 import { GALLERY_CONF, GALLERY_IMAGE } from '../../ngx-image-gallery.conf';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Observable, of, Observer } from 'rxjs';
 import { concatMap } from 'rxjs/operators'
 
@@ -154,7 +153,7 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
         }
         else {
             return galleryImage.url.pipe(concatMap((imageUrl: string) =>
-                of((observer: Observer<number>) => {
+                Observable.create((observer: Observer<number>) => {
                     this.loading = true;
 
                     let image = new Image();

@@ -18,6 +18,7 @@ import { assign, findIndex, debounce } from 'lodash';
 import { GALLERY_CONF, GALLERY_IMAGE } from '../../ngx-image-gallery.conf';
 import { Observable, of, Observer } from 'rxjs';
 import { concatMap } from 'rxjs/operators'
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 // key codes to react
@@ -225,6 +226,7 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
 
     constructor(
         private galleryElem: ElementRef,
+        private sanitizer: DomSanitizer,
         private renderer: Renderer2
     ) { }
 

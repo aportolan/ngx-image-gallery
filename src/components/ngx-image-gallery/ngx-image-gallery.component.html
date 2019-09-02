@@ -7,7 +7,7 @@
         <div class="image" *ngFor="let image of images; let i = index;"
              [class.active]="!loading && (i == activeImageIndex)"
              [ngStyle]="{top: conf.imageOffset, bottom: conf.imageOffset}">
-            <img *ngIf="i == activeImageIndex" [src]="image.url|async" [alt]="image.altText || ''"
+            <img *ngIf="i == activeImageIndex" [src]="sanitizer.bypassSecurityTrustUrl(image.url|async)" [alt]="image.altText || ''"
                  [style.cursor]="conf.imagePointer?  'pointer':'default'"
                  [style.borderRadius]="conf.imageBorderRadius" (click)="clickOnImage(activeImageIndex)"/>
         </div>
@@ -50,7 +50,8 @@
                 <div class="thumbnail"
                      *ngFor="let image of images; let i = index;"
                      [class.active]="i == activeImageIndex"
-                     [style.backgroundImage]="'url('+(image.thumbnailUrl|async)||(image.url|async)+')'"
+                     [style.backgroundImage]="sanitizer.bypassSecurityTrustStyle('url(' + ((image.thumbnailUrl|async) || (image.url|async)) + ')')"
+
 
                      [style.margin]="thumbnailMargin"
                      [style.width]="conf.thumbnailSize + 'px'"

@@ -16,7 +16,10 @@ import {
 import { assign, findIndex, debounce } from 'lodash';
 
 import { GALLERY_CONF, GALLERY_IMAGE } from '../../ngx-image-gallery.conf';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Observable, of, Observer } from 'rxjs';
+import { concatMap } from 'rxjs/operators'
+
 
 // key codes to react
 const KEY_CODES = {
@@ -142,31 +145,33 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
     }
 
     // load image and return promise
-    private loadImage(index: number): Promise<any> {
+    private loadImage(index: number): Observable<any> {
         const galleryImage: GALLERY_IMAGE = this.images[index];
 
         // check if image is cached
         if (galleryImage._cached) {
-            return Promise.resolve(index);
+            return of(index);
         }
         else {
-            return new Promise((resolve, reject) => {
-                this.loading = true;
+            return galleryImage.url.pipe(concatMap((imageUrl: string) =>
+                of((observer: Observer<number>) => {
+                    this.loading = true;
 
-                let image = new Image();
-                image.src = galleryImage.url;
+                    let image = new Image();
+                    image.src = imageUrl;
 
-                image.onload = () => {
-                    this.loading = false;
-                    galleryImage._cached = true;
-                    resolve(index);
-                };
+                    image.onload = () => {
+                        this.loading = false;
+                        galleryImage._cached = true;
+                        observer.next(index);
+                        observer.complete();
+                    };
 
-                image.onerror = (error) => {
-                    this.loading = false;
-                    reject(error);
-                };
-            });
+                    image.onerror = (error) => {
+                        this.loading = false;
+                        observer.error(error);
+                    };
+                })));
         }
     }
 
@@ -178,22 +183,19 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
         // emit event
         this.onImageChange.emit(imageIndex);
 
-        this.loadImage(imageIndex)
-            .then(_imageIndex => {
-                this.activeImageIndex = _imageIndex;
+        this.loadImage(imageIndex).subscribe((_imageIndex) => {
+            this.activeImageIndex = _imageIndex;
 
-                // scroll thumbnails
-                setTimeout(() => {
-                    this.fitThumbnails();
-                    setTimeout(() => this.scrollThumbnails(), 300);
-                });
-            })
-            .catch(
-                error => {
-                    this.activeImageIndex = 0;
-                    console.warn(error);
-                }
-            );
+            // scroll thumbnails
+            setTimeout(() => {
+                this.fitThumbnails();
+                setTimeout(() => this.scrollThumbnails(), 300);
+            });
+        }, error => {
+            this.activeImageIndex = 0;
+            console.warn(error);
+        }
+        );
     }
 
     // adjust thumbnail margin to perfectly fit viewport
@@ -229,6 +231,7 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
     ) { }
 
     ngOnInit() {
+
         // create final gallery configuration
         this.setGalleryConf(this.conf);
 

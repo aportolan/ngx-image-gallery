@@ -22,7 +22,8 @@
   "typings": "ngx-image-gallery.d.ts",
   "peerDependencies": {
     "@angular/core": "^4.0.0",
-    "rxjs": "^5.1.0",
+    "rxjs-compat": "^6.5.2",
+    "rxjs": "^6.5.2",
     "zone.js": "^0.8.4"
   }
 }

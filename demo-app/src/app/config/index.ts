@@ -1,6 +1,8 @@
 // gallery configuration
 
 import {GALLERY_CONF, GALLERY_IMAGE} from "ngx-image-gallery";
+import "rxjs/add/observable/of";
+import { Observable } from "rxjs/Observable";
 
 export const DEMO_GALLERY_CONF_INLINE: GALLERY_CONF = {
   imageOffset: '0px',
@@ -26,7 +28,7 @@ export const DEMO_GALLERY_CONF: GALLERY_CONF = {
 // gallery images
 export const DEMO_GALLERY_IMAGE: GALLERY_IMAGE[] = [
   {
-    url: "https://images.pexels.com/photos/669013/pexels-photo-669013.jpeg?w=1260",
+    url: Observable.of("https://images.pexels.com/photos/669013/pexels-photo-669013.jpeg?w=1260"),
     altText: 'woman-in-black-blazer-holding-blue-cup',
     title: 'woman-in-black-blazer-holding-blue-cup',
     thumbnailUrl: "https://images.pexels.com/photos/669013/pexels-photo-669013.jpeg?w=60"

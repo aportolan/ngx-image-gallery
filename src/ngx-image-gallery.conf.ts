@@ -1,3 +1,5 @@
+import { Observable } from "rxjs/Observable";
+
 export interface GALLERY_CONF {
 	imageBorderRadius?: string;
     imageOffset?: string;
@@ -19,8 +21,8 @@ export interface GALLERY_CONF {
 
 export interface GALLERY_IMAGE {
 	_cached?: boolean;
-	url: string;
-	thumbnailUrl?: string;
+	url: Observable<string>;
+	thumbnailUrl?: Observable<string>;
 	altText?: string;
 	title?: string;
 	extUrl?: string;

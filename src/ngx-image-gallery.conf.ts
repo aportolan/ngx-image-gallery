@@ -23,8 +23,8 @@ export interface GALLERY_CONF {
 
 export interface GALLERY_IMAGE {
 	_cached?: boolean;
-	url: Observable<SafeUrl>;
-	thumbnailUrl?: Observable<SafeUrl>;
+	url: Observable<string>;
+	thumbnailUrl?: Observable<string>;
 	altText?: string;
 	title?: string;
 	extUrl?: string;

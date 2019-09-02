@@ -226,7 +226,6 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
 
     constructor(
         private galleryElem: ElementRef,
-        private sanitizer: DomSanitizer,
         private renderer: Renderer2
     ) { }
 

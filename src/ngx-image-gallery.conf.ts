@@ -1,4 +1,6 @@
-import { Observable } from "rxjs/Observable";
+
+import { SafeUrl } from "@angular/platform-browser";
+import { Observable } from "rxjs";
 
 export interface GALLERY_CONF {
 	imageBorderRadius?: string;
@@ -21,8 +23,8 @@ export interface GALLERY_CONF {
 
 export interface GALLERY_IMAGE {
 	_cached?: boolean;
-	url: Observable<string>;
-	thumbnailUrl?: Observable<string>;
+	url: Observable<SafeUrl>;
+	thumbnailUrl?: Observable<SafeUrl>;
 	altText?: string;
 	title?: string;
 	extUrl?: string;

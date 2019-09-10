@@ -18,7 +18,7 @@ import { assign, findIndex, debounce } from 'lodash';
 import { GALLERY_CONF, GALLERY_IMAGE } from '../../ngx-image-gallery.conf';
 import { Observable, of, Observer } from 'rxjs';
 import { concatMap } from 'rxjs/operators'
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 
 // key codes to react
@@ -374,4 +374,16 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
         return this.conf.reactToRightClick;
     }
 
+    bypassSecurityTrustUrl(url: String): SafeUrl {
+        if (!url) {
+            return '';
+        }
+        return this.bypassSecurityTrustUrl(url);
+    }
+    bypassSecurityTrustStyle(url: String): SafeUrl {
+        if (!url) {
+            return '';
+        }
+        return this.bypassSecurityTrustStyle(url);
+    }
 }

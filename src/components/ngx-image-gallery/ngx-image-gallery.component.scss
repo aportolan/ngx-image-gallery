@@ -22,9 +22,6 @@
 	}
 }
 
-.gallery-background{
-    background-color: rgba(13,13,14,0.85);
-}
 // prevent drag, highlight and select
 @mixin no-select{
 	backface-visibility: hidden;

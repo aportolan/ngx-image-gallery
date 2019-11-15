@@ -43,7 +43,7 @@ const DEFAULT_CONF: GALLERY_CONF = {
     reactToMouseWheel: true,
     reactToRightClick: false,
     thumbnailSize: 30,
-    backdropColor: 'rgba(13,13,14,0.85)',
+    //backdropColor: 'rgba(13,13,14,0.85)',
     inline: false,
     showArrows: true
 };
@@ -236,7 +236,11 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
         this.setGalleryConf(this.conf);
 
         // apply backdrop color
-        this.renderer.setStyle(this.galleryElem.nativeElement, 'background-color', this.conf.backdropColor);
+        if (this.conf.backdropColor) {
+            this.renderer.setStyle(this.galleryElem.nativeElement, 'background-color', this.conf.backdropColor);
+        } else {
+            this.renderer.addClass(this.galleryElem.nativeElement, 'gallery-background');
+        }
 
         // gallery inline class and auto open
         if (this.conf.inline) {

@@ -43,7 +43,6 @@ const DEFAULT_CONF: GALLERY_CONF = {
     reactToMouseWheel: true,
     reactToRightClick: false,
     thumbnailSize: 30,
-    backdropColor: 'rgba(13,13,14,0.85)',
     inline: false,
     showArrows: true
 };
@@ -239,9 +238,6 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
         if (this.conf.backdropColor) {
             this.renderer.setStyle(this.galleryElem.nativeElement, 'background-color', this.conf.backdropColor);
         }
-        else{
-            this.renderer.setStyle(this.galleryElem.nativeElement, null, null);
-        }
 
         // gallery inline class and auto open
         if (this.conf.inline) {
@@ -379,16 +375,16 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
         return this.conf.reactToRightClick;
     }
 
-    bypassSecurityTrustUrl(url: String): SafeUrl {
+    bypassSecurityTrustUrl(url: string): SafeUrl {
         if (!url || url === 'url(null)') {
             return '';
         }
-        return this.bypassSecurityTrustUrl(url);
+        return this.sanitizer.bypassSecurityTrustUrl(url);
     }
-    bypassSecurityTrustStyle(url: String): SafeUrl {
+    bypassSecurityTrustStyle(url: string): SafeUrl {
         if (!url || url === 'url(null)') {
             return '';
         }
-        return this.bypassSecurityTrustStyle(url);
+        return this.sanitizer.bypassSecurityTrustStyle(url);
     }
 }

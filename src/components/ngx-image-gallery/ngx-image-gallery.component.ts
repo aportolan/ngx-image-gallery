@@ -237,6 +237,8 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
         // apply backdrop color
         if (this.conf.backdropColor) {
             this.renderer.setStyle(this.galleryElem.nativeElement, 'background-color', this.conf.backdropColor);
+        }else{
+            this.renderer.addClass(this.galleryElem.nativeElement, 'ngx-image-gallery-backround');
         }
 
         // gallery inline class and auto open

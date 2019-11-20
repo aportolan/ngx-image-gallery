@@ -241,7 +241,7 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
         // apply backdrop color
         if (this.conf.backdropColor) {
             this.renderer.setStyle(this.galleryElem.nativeElement, 'background-color', this.conf.backdropColor);
-        }else{
+        } else {
             this.renderer.addClass(this.galleryElem.nativeElement, 'ngx-image-gallery-background');
         }
 
@@ -254,6 +254,7 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         // when gallery configuration changes
+        console.log("GALLERY CHANGES--------->", changes);
         if (changes.conf && changes.conf.firstChange == false) {
             this.setGalleryConf(changes.conf.currentValue);
 

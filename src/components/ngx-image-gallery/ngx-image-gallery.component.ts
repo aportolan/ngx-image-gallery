@@ -10,7 +10,8 @@ import {
     Output,
     OnChanges,
     SimpleChanges,
-    ViewChild
+    ViewChild,
+    ChangeDetectorRef
 } from '@angular/core';
 
 import { assign, findIndex, debounce } from 'lodash';
@@ -162,6 +163,7 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
                     image.onload = () => {
                         this.loading = false;
                         galleryImage._cached = true;
+                        this.changeDetectorRef.detectChanges();
                         observer.next(index);
                         observer.complete();
                     };
@@ -169,6 +171,7 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
                     image.onerror = (error) => {
                         this.loading = false;
                         observer.error(error);
+                        this.changeDetectorRef.detectChanges();
                     };
                 })));
         }
@@ -226,7 +229,8 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
     constructor(
         private galleryElem: ElementRef,
         private sanitizer: DomSanitizer,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private changeDetectorRef: ChangeDetectorRef
     ) { }
 
     ngOnInit() {

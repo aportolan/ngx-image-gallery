@@ -163,7 +163,6 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
                     image.onload = () => {
                         this.loading = false;
                         galleryImage._cached = true;
-                        this.changeDetectorRef.detectChanges();
                         observer.next(index);
                         observer.complete();
                     };
@@ -171,7 +170,6 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
                     image.onerror = (error) => {
                         this.loading = false;
                         observer.error(error);
-                        this.changeDetectorRef.detectChanges();
                     };
                 })));
         }
@@ -243,6 +241,8 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
             this.renderer.setStyle(this.galleryElem.nativeElement, 'background-color', this.conf.backdropColor);
         } else {
             this.renderer.addClass(this.galleryElem.nativeElement, 'ngx-image-gallery-background');
+            this.changeDetectorRef.detectChanges();
+
         }
 
         // gallery inline class and auto open

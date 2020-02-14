@@ -191,6 +191,7 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
                 this.fitThumbnails();
                 setTimeout(() => this.scrollThumbnails(), 300);
             });
+            this.changeDetectorRef.detectChanges();
         }, error => {
             this.activeImageIndex = 0;
             console.warn(error);

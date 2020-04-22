@@ -7,10 +7,9 @@
         <div class="image" *ngFor="let image of images; let i = index;"
             [class.active]="!loading && (i == activeImageIndex)"
             [ngStyle]="{top: conf.imageOffset, bottom: conf.imageOffset}">
-            <img *ngIf="i == activeImageIndex && image && image.url"
-                [src]="bypassSecurityTrustUrl(image.url|async)" [alt]="image.altText || ''"
-                [style.cursor]="conf.imagePointer?  'pointer':'default'" [style.borderRadius]="conf.imageBorderRadius"
-                (click)="clickOnImage(activeImageIndex)" />
+            <img *ngIf="i == activeImageIndex && image && image.url" [src]="bypassSecurityTrustUrl(image.url|async)"
+                [alt]="image.altText || ''" [style.cursor]="conf.imagePointer?  'pointer':'default'"
+                [style.borderRadius]="conf.imageBorderRadius" (click)="clickOnImage(activeImageIndex)" />
         </div>
 
         <!-- loading animation -->
@@ -29,7 +28,6 @@
             </svg>
         </div>
     </div>
-
     <!-- info and thumbnails -->
     <div class="info-container">
         <div class="title" *ngIf="conf.showImageTitle && !loading && activeImage && activeImage.title"
@@ -40,9 +38,8 @@
         <div #thumbnails class="thumbnails" *ngIf="conf.showThumbnails">
             <div class="thumbnails-scroller" [style.marginLeft]="thumbnailsScrollerLeftMargin">
                 <ng-container *ngFor="let image of images; let i = index;">
-                    <div *ngIf="image && image.url" class="thumbnail" 
-                        [class.active]="i == activeImageIndex"
-                        [style.backgroundImage]="bypassSecurityTrustStyle('url(' + ((image.thumbnailUrl|async) || (image.url|async)) + ')')"
+                    <div *ngIf="image && image.url" class="thumbnail" [class.active]="i == activeImageIndex"
+                        [style.backgroundImage]="bypassSecurityTrustStyle('url(' + (((image.thumbnailUrl || image.url)|async) + ')')"
                         [style.margin]="thumbnailMargin" [style.width]="conf.thumbnailSize + 'px'"
                         [style.height]="conf.thumbnailSize + 'px'" (click)="setActiveImage(i)">
                         <div class="feedback"></div>

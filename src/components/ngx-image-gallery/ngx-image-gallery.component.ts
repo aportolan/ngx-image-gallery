@@ -64,6 +64,8 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
     // gallery images
     @Input() images: GALLERY_IMAGE[] = [];
 
+    @Input() currentlyHidden: boolean = false;
+
     // event emmiters
     @Output() onOpen = new EventEmitter();
     @Output() onClose = new EventEmitter();
@@ -270,7 +272,7 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
         }
 
         // when gallery images changes
-        if (changes.images && changes.images.firstChange == false) {
+        if (changes.images && changes.images.firstChange == false && this.conf.inline === true) {
             this.images = changes.images.currentValue;
 
             if (this.images.length) {

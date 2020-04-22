@@ -37,13 +37,15 @@
 
         <div #thumbnails class="thumbnails" *ngIf="conf.showThumbnails">
             <div class="thumbnails-scroller" [style.marginLeft]="thumbnailsScrollerLeftMargin">
-                <ng-container *ngFor="let image of images; let i = index;">
-                    <div *ngIf="image && image.url" class="thumbnail" [class.active]="i == activeImageIndex"
-                        [style.backgroundImage]="bypassSecurityTrustStyle('url(' + ((image.thumbnailUrl || image.url)|async) + ')')"
-                        [style.margin]="thumbnailMargin" [style.width]="conf.thumbnailSize + 'px'"
-                        [style.height]="conf.thumbnailSize + 'px'" (click)="setActiveImage(i)">
-                        <div class="feedback"></div>
-                    </div>
+                <ng-container *ngIf="currentlyHidden === false">
+                    <ng-container *ngFor="let image of images; let i = index;">
+                        <div *ngIf="image && image.url" class="thumbnail" [class.active]="i == activeImageIndex"
+                            [style.backgroundImage]="bypassSecurityTrustStyle('url(' + ((image.thumbnailUrl || image.url)|async) + ')')"
+                            [style.margin]="thumbnailMargin" [style.width]="conf.thumbnailSize + 'px'"
+                            [style.height]="conf.thumbnailSize + 'px'" (click)="setActiveImage(i)">
+                            <div class="feedback"></div>
+                        </div>
+                    </ng-container>
                 </ng-container>
             </div>
         </div>

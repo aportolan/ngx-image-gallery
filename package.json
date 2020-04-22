@@ -1,6 +1,6 @@
 {
   "name": "ngx-image-gallery",
-  "version": "1.4.26",
+  "version": "1.4.27",
   "description": "Probably the best Angular 4+ modal & inline image gallery. Angular upgrade for ng-image-gallery.",
   "scripts": {
     "build": "gulp build",

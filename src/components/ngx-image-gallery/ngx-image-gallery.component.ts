@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, OnChanges, OnInit, Output, Renderer2, SimpleChanges, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { assign, debounce } from 'lodash';
 import { Observable, Observer, of } from 'rxjs';
@@ -178,6 +178,7 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
             setTimeout(() => {
                 this.fitThumbnails();
                 setTimeout(() => this.scrollThumbnails(), 300);
+                this.changeDetectorRef.detectChanges();
             });
         }, error => {
             this.activeImageIndex = 0;
@@ -215,7 +216,8 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
     constructor(
         private galleryElem: ElementRef,
         private sanitizer: DomSanitizer,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private changeDetectorRef: ChangeDetectorRef
     ) { }
 
     ngOnInit() {
@@ -228,7 +230,7 @@ export class NgxImageGalleryComponent implements OnInit, OnChanges {
             this.renderer.setStyle(this.galleryElem.nativeElement, 'background-color', this.conf.backdropColor);
         } else {
             this.renderer.addClass(this.galleryElem.nativeElement, 'ngx-image-gallery-background');
-           // this.changeDetectorRef.detectChanges();
+            // this.changeDetectorRef.detectChanges();
 
         }
 

@@ -31,7 +31,8 @@ const DEFAULT_CONF: GALLERY_CONF = {
     reactToRightClick: false,
     thumbnailSize: 30,
     inline: false,
-    showArrows: true
+    showArrows: true,
+    dark:true
 };
 
 @Component({

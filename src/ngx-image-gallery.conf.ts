@@ -18,7 +18,8 @@ export interface GALLERY_CONF {
 	reactToRightClick?: boolean;
 	thumbnailSize?: number;
 	backdropColor?: string;
-	inline?: boolean;
+    inline?: boolean;
+    dark?:boolean;
 }
 
 export interface GALLERY_IMAGE {
